@@ -11,18 +11,17 @@ def processImage(img):
     cropped = img[160:970, 1450:1850] #height then width
     cv.imshow('goblet cropped', cropped)
 
-    #blank
-    # blank = np.zeros(cropped.shape, dtype='uint8')
-    # blank[:] = 255
-    
+    # blank
+    blank = np.zeros(cropped.shape, dtype='uint8')
 
+    
     #grey
     # kernel = np.ones((5,5),np.float32)/25
     gray = cv.cvtColor(cropped, cv.COLOR_BGR2GRAY)
     cv.imshow('goblet gray', gray)
 
-    #blur
-    # blur = cv.GaussianBlur(gray, (1,1), cv.BORDER_DEFAULT)
+    # blur
+    # blur = cv.GaussianBlur(gray, (7,7), cv.BORDER_DEFAULT)
     # cv.imshow('goblet blur', blur)
 
 
@@ -44,17 +43,12 @@ def processImage(img):
     invert = cv.bitwise_not(thresh)
     cv.imshow("goblet invert", invert)
 
-  
-
-
     #contrast
     # contrast = 1.0001*invert 
     # alpha= 1.1
     # beta = 50
     # contrast = cv.convertScaleAbs(invert, alpha=alpha, beta=beta)
     # cv.imshow("goblet contrast", contrast)
-
-
 
     #gray to black
     # # Convert input RGB to HSV
@@ -64,7 +58,10 @@ def processImage(img):
     # bw = 255*np.uint8(vChannel < 200)  
     # cv.imshow("goblet gray to black", bw)
 
-    
+    print(pt.image_to_boxes(invert))
+
+
+
 
     #edge cascade
     # canny = cv.Canny(gray, 90, 450)
@@ -72,8 +69,6 @@ def processImage(img):
     canny = cv.Canny(thresh, 90, 450)
     cv.imshow('goblet canny 90 450', canny)
     
-
-
 
 
     #contours onto blank
